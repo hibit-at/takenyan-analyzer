@@ -1,0 +1,3 @@
+django-heroku
+gunicorn
+requests_oauthlib
