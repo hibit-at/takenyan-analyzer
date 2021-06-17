@@ -12,6 +12,11 @@ django.setup()
 
 if os.path.exists('local.py'):
     from local import AT, ATS, CK, CS
+else:
+    AT = os.environ['AT']
+    ATS = os.environ['ATS']
+    CK = os.environ['CK']
+    CS = os.environ['CS']
 
 twitter = OAuth1Session(CK, CS, AT, ATS)  # 認証処理
 
