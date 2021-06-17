@@ -23,7 +23,7 @@
         </tr>
         {% for tweet in data %}
         <tr>
-            <td>{{ tweet.dt }}</td>
+            <td><a href = "https://twitter.com/windio_nyan_/status/{{tweet.tw_id}}" target="_blank">{{ tweet.dt }}</a></td>
             <td>{{ tweet.usr }}</td>
             <td>{{ tweet.txt }}</td>
         </tr>

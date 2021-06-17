@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -23,9 +26,13 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '=m453sw$fm70#7mornw11ad9%dtn@(&q*fk4^970md0zpsm0^8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
+DEBUG = False
 ALLOWED_HOSTS = ['*']
+
+if os.path.exists('local.py'):
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,14 +81,12 @@ WSGI_APPLICATION = 'takenyan.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-import dj_database_url
 
 db_from_env = dj_database_url.config()
 DATABASES = {
     'default': dj_database_url.config()
 }
 
-import os
 
 if os.path.exists('local.py'):
     DATABASES = {
@@ -89,7 +94,7 @@ if os.path.exists('local.py'):
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
-    }  
+    }
 
 
 # Password validation
