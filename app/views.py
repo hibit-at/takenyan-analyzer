@@ -22,7 +22,7 @@ def plt2png():
 
 def img_plot(response):
     plt.cla()
-    data = Tweet.objects.order_by('dt')[:6]
+    data = Tweet.objects.order_by('dt').reverse()[:6]
     x = []
     y = []
     r = []
