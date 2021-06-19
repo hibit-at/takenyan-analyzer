@@ -38,7 +38,7 @@ def img_plot(response):
             y.append(dt.hour+dt.minute/60)
 
     fig, ax = plt.subplots()
-    ax.plot(x, y, c='blue')
+    ax.plot(x, y, c='black')
     ax.plot(x, r, c='red', linewidth=1, linestyle='dashed')
     plt.ylim(12, 36)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d"))
