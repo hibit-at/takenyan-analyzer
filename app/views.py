@@ -23,7 +23,7 @@ def plt2png():
 
 def img_plot(response):
     plt.cla()
-    data = Tweet.objects.order_by('dt').reverse()[:6]
+    data = Tweet.objects.order_by('dt').reverse().all()
     x = []
     y = []
     r = []
@@ -41,7 +41,7 @@ def img_plot(response):
     fig, ax = plt.subplots()
     ax.plot(x, y, c='black')
     ax.plot(x, r, c='red', linewidth=1, linestyle='dashed')
-    plt.ylim(12, 36)
+    plt.ylim(18, 30)
     start = response.GET.get('start')
     end = response.GET.get('end')
     sp = list(map(int,start.split('-')))
