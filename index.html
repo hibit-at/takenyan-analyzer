@@ -9,7 +9,20 @@
 
 <body>
     <h1 class="p-3 mb-2 bg-danger text-white">ねねばー推移</a></h1>
-    <img src="{% url 'app:img_plot' %}" width="600" height="600">
+    <img src="/img_plot?start={{start}}&end={{end}}" width="600" height="600">
+    <form action="/" method="post">
+        {% csrf_token %}
+        <p>集計期間 {{start}}～{{end}}</p>
+        <div>
+          <label for="start">開始</label>
+          <input type="date" id="start" name="start">
+        </div>
+        <div>
+          <label for="end">終了</label>
+          <input type="date" id="end" name="end">
+        </div>
+        <button class="btn-light" type="submit">グラフ再描画</button>
+      </form>
     <h1 class="p-3 mb-2 bg-danger text-white">直近のねねばー</h1>
     {% for r in recent%}
     <blockquote class="twitter-tweet">
