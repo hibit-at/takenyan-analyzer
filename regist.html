@@ -35,17 +35,20 @@
     </blockquote>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     {% if author != 'windio_nyan_'%}
-    <p class='text-danger'>!ERROR! ツイートの送信主が @_windio_nyanではありません </p>
+    <p class='text-danger'>!ERROR! ツイートの送信主が @_windio_nyan ではありません </p>
     {% endif %}
     {% if 'ねねばー' not in res.text %}
     <p class='text-danger'>!ERROR! ツイート内容に「ねねばー」が含まれていません </p>
+    {% endif %}
+    {% if exist %}
+    <p class='text-danger'>!ERROR! このツイートは既に登録されています </p>
     {% endif %}
 
     <form action="confirm" method="post">
     <input type="hidden" name="addid" value={{idnum}}>
     {% csrf_token %}
     <button type="submit" class="btn btn-danger"
-    {% if author != 'windio_nyan_' or 'ねねばー' not in res.text %}disabled{% endif %}>ツイートを追加</button>
+    {% if author != 'windio_nyan_' or 'ねねばー' not in res.text or exist%}disabled{% endif %}>ツイートを追加</button>
     {% endif %}
     </form>
     <p></p>
@@ -56,7 +59,7 @@
                 placeholder="（例）https://twitter.com/_windio_nyan/status/***************">
             <div class="form-text">ねねばーが含まれているツイートのURLを貼ってください.</div>
         </div>
-        <button type="submit" class="btn btn-danger">ツイート内容確認</button>
+        <button type="submit" class="btn btn-danger">URL送信</button>
     </form>
     <p></p>
     <a href='/'>トップページ</a>

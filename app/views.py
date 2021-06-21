@@ -104,6 +104,10 @@ def regist(request, url='', author='', idnum='', res='error'):
         print(result)
         author = result[0][0]
         idnum = result[0][1]
+        to = Tweet.objects.filter(tw_id=idnum)
+        if len(to) > 0:
+            params = {'target' : url, 'author' : author, 'idnum' : idnum, 'exist' : True}
+            return render(request, 'regist.html', params)
         api_url = 'https://api.twitter.com/1.1/statuses/show.json'
         params = {'id': idnum}
         req = twitter.get(api_url, params=params)
@@ -111,7 +115,7 @@ def regist(request, url='', author='', idnum='', res='error'):
             res = json.loads(req.text)
         else:
             res = 'error'
-    params = {'target': url, 'author': author, 'idnum': idnum, 'res': res}
+    params = {'target': url, 'author': author, 'idnum': idnum, 'res': res, 'exist' : False}
     return render(request, 'regist.html', params)
 
 
