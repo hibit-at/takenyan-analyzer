@@ -1,4 +1,6 @@
 import io
+import json
+import os
 from datetime import datetime, timedelta
 
 import matplotlib
@@ -8,6 +10,17 @@ from django.http import HttpResponse  # 追加
 from django.shortcuts import render
 
 from app.models import Tweet
+
+if os.path.exists('local.py'):
+    from local import AT, ATS, CK, CS
+else:
+    AT = os.environ['AT']
+    ATS = os.environ['ATS']
+    CK = os.environ['CK']
+    CS = os.environ['CS']
+from requests_oauthlib import OAuth1Session
+
+twitter = OAuth1Session(CK, CS, AT, ATS)  # 認証処理
 
 matplotlib.use('Agg')
 
@@ -78,3 +91,22 @@ def index(request):  # 追加
     print(type(start),type(end))
     params = {'data': data, 'recent': recent, 'start' : start, 'end' : end}
     return render(request, 'index.html', params)
+
+def regist(request,url='',author='',idnum='',res='error'):
+    if 'url' in request.POST:
+        url = request.POST['url']
+        import re
+        pattern = r'https://twitter.com/(.*?)/status/(.*)'
+        result = re.findall(pattern,url)
+        print(result)
+        author = result[0][0]
+        idnum = result[0][1]
+        api_url = 'https://api.twitter.com/1.1/statuses/show.json'
+        params = {'id': idnum}
+        req = twitter.get(api_url, params=params)
+        if req.status_code == 200:
+            res = json.loads(req.text)
+        else:
+            res = 'error'
+    params = {'target' : url, 'author' : author, 'idnum' : idnum, 'res' : res}
+    return render(request, 'regist.html', params)
