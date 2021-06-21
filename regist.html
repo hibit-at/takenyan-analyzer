@@ -40,9 +40,14 @@
     {% if 'ねねばー' not in res.text %}
     <p class='text-danger'>!ERROR! ツイート内容に「ねねばー」が含まれていません </p>
     {% endif %}
+
+    <form action="confirm" method="post">
+    <input type="hidden" name="addid" value={{idnum}}>
+    {% csrf_token %}
     <button type="submit" class="btn btn-danger"
     {% if author != 'windio_nyan_' or 'ねねばー' not in res.text %}disabled{% endif %}>ツイートを追加</button>
     {% endif %}
+    </form>
     <p></p>
     <form action='regist' method="POST">
         {% csrf_token %}
