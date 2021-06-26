@@ -48,8 +48,10 @@ def img_plot(response):
         r.append(24)
         dt = d.dt
         if dt.hour < 12:
-            x.append(datetime(dt.year, dt.month, dt.day-1))
+            dt -= timedelta(days=1)
+            x.append(datetime(dt.year, dt.month, dt.day))
             y.append(dt.hour+24+dt.minute/60)
+                
         else:
             x.append(datetime(dt.year, dt.month, dt.day))
             y.append(dt.hour+dt.minute/60)
