@@ -141,3 +141,6 @@ def confirm(request,addid=''):
         res = 'error'
     params = {'addid' : addid}
     return render(request, 'confirm.html', params)
+
+def three(request):
+    return render(request,'three.html')
