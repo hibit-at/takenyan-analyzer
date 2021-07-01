@@ -10,4 +10,5 @@ urlpatterns = [
     path('regist', views.regist, name='regist'),
     path('confirm', views.confirm, name='confirm'),
     path('three',views.three,name='three'),
+    path('obj',views.obj,name='obj'),
 ]

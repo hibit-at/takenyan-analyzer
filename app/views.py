@@ -84,10 +84,12 @@ def index(request):  # 追加
     e_year = recent[0].dt.year
     e_month = recent[0].dt.month
     e_day = recent[0].dt.day
-    if recent[0].dt.hour < 12:
-        e_day -= 1
-    end = '{}-{}-{}'.format(e_year, e_month, e_day)
-    start = '{}-{}-{}'.format(e_year, e_month, e_day-7)
+    e_dt = datetime(e_year,e_month,e_day)
+    if e_dt.hour < 12:
+        e_dt -= timedelta(days=1)
+    end = '{}-{}-{}'.format(e_dt.year, e_dt.month, e_dt.day)
+    s_dt = e_dt - timedelta(days=7)
+    start = '{}-{}-{}'.format(s_dt.year, s_dt.month, s_dt.day)
     if 'start' in request.POST and request.POST['start'] != '':
         start = request.POST['start']
     if 'end' in request.POST and request.POST['end'] != '':
@@ -144,3 +146,6 @@ def confirm(request,addid=''):
 
 def three(request):
     return render(request,'three.html')
+
+def obj(request):
+    return render(request,'obj.html')
